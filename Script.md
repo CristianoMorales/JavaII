@@ -50,19 +50,3 @@ json
   "resultadoChave": { "id": 1 }
 }
 ________________________________________
-
-Use o GET /api/krs e GET /api/objetivos:
-•	O KR deve ter como porcentagemConclusao a média das iniciativas:
-(100 + 50) / 2 = 75.0
-
-
-Acessar o H2 Console
-mostrar o banco funcionando visualmente:
-1.
-http://localhost:8080/h2-console
-2.
-o	JDBC URL: jdbc:h2:mem:testdb
-o	Username: sa
-o	Password: 
-3.	Clique em Connect
-________________________________________
