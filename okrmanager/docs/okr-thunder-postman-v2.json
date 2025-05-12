@@ -1,0 +1,53 @@
+{
+  "info": {
+    "_postman_id": "b0bfcf4e-5e9c-4eaa-a1cf-123456789abc",
+    "name": "OKR Manager - Postman Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Criar Objetivo",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"Aumentar satisfação do cliente\",\n  \"descricao\": \"Meta relacionada ao NPS no Q2\"\n}"
+        },
+        "url": { "raw": "http://localhost:8080/api/objetivos", "host": ["localhost:8080"], "path": ["api", "objetivos"] }
+      }
+    },
+    {
+      "name": "Listar Objetivos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "http://localhost:8080/api/objetivos", "host": ["localhost:8080"], "path": ["api", "objetivos"] }
+      }
+    },
+    {
+      "name": "Criar KR",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descricao\": \"Reduzir cancelamentos mensais\",\n  \"meta\": \"Churn menor que 5%\",\n  \"objetivo\": { \"id\": 1 }\n}"
+        },
+        "url": { "raw": "http://localhost:8080/api/krs", "host": ["localhost:8080"], "path": ["api", "krs"] }
+      }
+    },
+    {
+      "name": "Criar Iniciativa",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"Campanha de email\",\n  \"descricao\": \"Recuperação de clientes\",\n  \"porcentagemConclusao\": 80.0,\n  \"resultadoChave\": { \"id\": 1 }\n}"
+        },
+        "url": { "raw": "http://localhost:8080/api/iniciativas", "host": ["localhost:8080"], "path": ["api", "iniciativas"] }
+      }
+    }
+  ]
+}
