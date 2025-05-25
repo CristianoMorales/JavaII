@@ -1,55 +1,53 @@
-# 📊 Sistema de Gestão de OKRs
+# Sistema de Gestão de OKRs
 
-Este projeto é um sistema web simplificado para gerenciamento de **OKRs** (Objectives and Key Results), permitindo criar **Objetivos**, seus **Resultados-Chave** e as **Iniciativas** que compõem esses resultados. O backend foi desenvolvido com **Java + Spring Boot**, seguindo uma arquitetura em camadas bem definida.
-
-## 🧠 Lógica do Sistema
-
-A lógica principal do sistema gira em torno de três níveis:
-
-- **Objetivo**: Uma meta principal qualitativa.
-- **Resultado-Chave (KR)**: Submetas mensuráveis ligadas a um Objetivo.
-- **Iniciativa**: Ações práticas que contribuem para alcançar um KR.
-
-A hierarquia é a seguinte:
-
-```
-Objetivo
-└── Resultado-Chave (KR)
-    └── Iniciativa
-```
-
-As **porcentagens de conclusão** são calculadas da seguinte forma:
-- A média das porcentagens das **Iniciativas** atualiza o **Resultado-Chave**.
-- A média das porcentagens dos **KRs** atualiza o **Objetivo**.
+Este projeto é uma aplicação full-stack desenvolvida em **Java com Spring Boot** no back-end e **Next.js com JavaScript** no front-end. Seu objetivo é permitir a criação, visualização e gestão de **Objetivos**, **Resultados-Chave (KRs)** e **Iniciativas**, seguindo a metodologia de OKRs (Objectives and Key Results).
 
 ---
 
-## 📁 Estrutura de Pacotes
+## 👨‍💻 Integrantes
 
-### `model/` – Entidades JPA
-
-Contém as classes que representam as **tabelas do banco de dados**.
-
-- `Objetivo.java`
-  - Campos: `titulo`, `descricao`, `porcentagemConclusao`.
-  - Relacionamento: `@OneToMany` com ResultadoChave.
-  - Observação: `porcentagemConclusao` é calculada automaticamente.
-
-- `ResultadoChave.java`
-  - Campos: `descricao`, `meta`, `porcentagemConclusao`.
-  - Relacionamentos:
-    - `@ManyToOne` com Objetivo.
-    - `@OneToMany` com Iniciativa.
-
-- `Iniciativa.java`
-  - Campos: `titulo`, `descricao`, `porcentagemConclusao` (manual).
-  - Relacionamento: `@ManyToOne` com ResultadoChave.
+- **Cristiano Morales** – RA: 12345678
+- **João Trevisol – RA: 10277893
+- **Matheus Fernandes – RA: 10435788
 
 ---
 
-### `repository/` – Acesso ao banco de dados
+## 📦 Tecnologias Utilizadas
 
-Interfaces que estendem `JpaRepository`, permitindo operações CRUD sem escrever SQL:
+### Backend
+- Java 17
+- Spring Boot
+- Spring Data JPA
+- H2 Database (em memória)
+- Maven
+
+### Frontend
+- Next.js (App Router)
+- JavaScript (sem TypeScript)
+- Tailwind CSS
+
+---
+
+## 📁 Estrutura do Projeto
+
+### `model/` – Entidades do sistema
+Contém as classes JPA que representam as tabelas do banco de dados:
+
+- `Objetivo.java`: representa a meta principal.
+  - Possui título, descrição, porcentagem de conclusão.
+  - Relaciona com vários KRs (`@OneToMany`).
+- `ResultadoChave.java`: representa os KRs ligados a um Objetivo.
+  - Possui descrição, meta e porcentagem de conclusão.
+  - Relaciona com um Objetivo (`@ManyToOne`) e várias Iniciativas.
+- `Iniciativa.java`: ações práticas ligadas a um KR.
+  - Possui título, descrição e porcentagem de conclusão manual.
+
+> 💡 Hierarquia: Objetivo → Resultados-Chave → Iniciativas
+
+---
+
+### `repository/` – Camada de persistência
+Interfaces que estendem `JpaRepository`, permitindo acesso ao banco sem necessidade de SQL manual.
 
 - `ObjetivoRepository`
 - `ResultadoChaveRepository`
@@ -57,79 +55,51 @@ Interfaces que estendem `JpaRepository`, permitindo operações CRUD sem escreve
 
 ---
 
-### `service/` – Lógica de negócio
+### `service/` – Regras de negócio
+Responsável por conter as regras da aplicação e cálculos automáticos.
 
-Camada responsável pelas **regras e cálculos do sistema**.
-
-- `ObjetivoService`
-  - CRUD de Objetivos.
-  - Atualiza a `porcentagemConclusao` com base nos KRs.
-
-- `ResultadoChaveService`
-  - CRUD de KRs.
-  - Verifica se o Objetivo existe antes de associar.
-  - Atualiza sua `porcentagemConclusao` com base nas Iniciativas.
-
-- `IniciativaService` ⭐
-  - CRUD de Iniciativas.
-  - Após cada ação (criação, edição ou exclusão), **recalcula automaticamente** a média do ResultadoChave e do Objetivo.
+- `ObjetivoService`: CRUD completo, calcula média das KRs.
+- `ResultadoChaveService`: CRUD de KRs, calcula média das iniciativas.
+- `IniciativaService`: atualiza a porcentagem do KR e do Objetivo automaticamente.
 
 ---
 
-### `controller/` – Endpoints REST
+### `controller/` – API REST
+Controladores que expõem os endpoints:
 
-Expõe a API REST para consumo via Thunder Client ou Frontend:
+- `ObjetivoController`: `/api/objetivos`
+- `ResultadoChaveController`: `/api/krs`
+- `IniciativaController`: `/api/iniciativas`
 
-- `ObjetivoController` → `/api/objetivos`
-- `ResultadoChaveController` → `/api/krs`
-- `IniciativaController` → `/api/iniciativas`
-
-Cada controller contém:
-
-- `@RestController`
-- `@RequestMapping`
-- Métodos HTTP: `@PostMapping`, `@GetMapping`, `@PutMapping`, `@DeleteMapping`
+Métodos utilizados: `@PostMapping`, `@GetMapping`, `@PutMapping`, `@DeleteMapping`.
 
 ---
 
-## 🔗 Exemplos de Endpoints
+## 🌐 Frontend (Next.js)
 
-### 🔍 GET – Listar Objetivos
-```
-GET /api/objetivos
-```
+### Estrutura
+- `/objetivos`: página que lista objetivos.
+- `/krs`: página que lista os KRs.
+- `/iniciativas`: página que lista as iniciativas.
+- Cada uma possui botão para **criar novo**, e exibe a **porcentagem de conclusão**.
+- Estilo simples com Tailwind.
 
-### 📝 POST – Criar Resultado-Chave
-```
-POST /api/krs
-Body:
-{
-  "descricao": "Aumentar NPS",
-  "meta": "Chegar a 85",
-  "objetivoId": 1
-}
-```
-
-### ✏️ PUT – Atualizar uma Iniciativa
-```
-PUT /api/iniciativas/3
-Body:
-{
-  "titulo": "Nova campanha de marketing",
-  "descricao": "Campanha com foco no WhatsApp",
-  "porcentagemConclusao": 100
-}
-```
-
-### ❌ DELETE – Excluir Objetivo
-```
-DELETE /api/objetivos/1
-```
+### Funcionalidades
+- Consumo de dados com `fetch`.
+- Criação e deleção de entidades.
+- Edição da porcentagem de Iniciativas.
+- Atualização dinâmica das porcentagens dos KRs e Objetivos.
+- Navegação com `Link`.
 
 ---
 
-## 👥 Membros do Grupo
+## 🔁 Lógica do Cálculo de Porcentagem
 
-- Cristiano Morales – RA: 10437953
-- João Trevisol – RA: 10277893
-- Matheus Fernandes – RA: 10435788
+- Quando uma **Iniciativa** é criada ou atualizada:
+  - Atualiza a média do KR.
+  - O KR atualiza a média do Objetivo automaticamente.
+  
+```text
+Média do KR = média das porcentagens das Iniciativas ligadas a ele
+Média do Objetivo = média das porcentagens dos seus KRs
+
