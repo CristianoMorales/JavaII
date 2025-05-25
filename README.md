@@ -103,3 +103,9 @@ Métodos utilizados: `@PostMapping`, `@GetMapping`, `@PutMapping`, `@DeleteMappi
 Média do KR = média das porcentagens das Iniciativas ligadas a ele
 Média do Objetivo = média das porcentagens dos seus KRs
 
+## Observações Finais
+
+- As porcentagens são atualizadas automaticamente conforme a média dos elementos filhos.
+- Os formulários foram testados e validados.
+- O sistema funciona localmente em `localhost:3000` para o front e `localhost:8080` para o back-end.
+- O Thunder Client pode não funcionar corretamente com JSONs aninhados complexos (como `{ resultadoChave: { id: ... } }`), por isso o fetch do front foi ajustado para esse cenário.
