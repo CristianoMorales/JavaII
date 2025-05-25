@@ -24,7 +24,6 @@ Este projeto é uma aplicação full-stack desenvolvida em **Java com Spring Boo
 ### Frontend
 - Next.js (App Router)
 - JavaScript (sem TypeScript)
-- Tailwind CSS
 
 ---
 
