@@ -7,8 +7,8 @@ Este projeto é uma aplicação full-stack desenvolvida em **Java com Spring Boo
 ## 👨‍💻 Integrantes
 
 - **Cristiano Morales** – RA: 12345678
-- **João Trevisol – RA: 10277893
-- **Matheus Fernandes – RA: 10435788
+- **João Trevisol** – RA: 10277893
+- **Matheus Fernandes** – RA: 10435788
 
 ---
 
