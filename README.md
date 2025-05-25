@@ -81,7 +81,6 @@ Métodos utilizados: `@PostMapping`, `@GetMapping`, `@PutMapping`, `@DeleteMappi
 - `/krs`: página que lista os KRs.
 - `/iniciativas`: página que lista as iniciativas.
 - Cada uma possui botão para **criar novo**, e exibe a **porcentagem de conclusão**.
-- Estilo simples com Tailwind.
 
 ### Funcionalidades
 - Consumo de dados com `fetch`.
