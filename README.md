@@ -101,7 +101,7 @@ Métodos utilizados: `@PostMapping`, `@GetMapping`, `@PutMapping`, `@DeleteMappi
 ```text
 Média do KR = média das porcentagens das Iniciativas ligadas a ele
 Média do Objetivo = média das porcentagens dos seus KRs
-
+```
 ## Observações Finais
 
 - As porcentagens são atualizadas automaticamente conforme a média dos elementos filhos.
